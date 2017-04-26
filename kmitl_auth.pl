@@ -1,8 +1,8 @@
 use LWP::UserAgent;
 use HTTP::Cookies;
 
-$username=shift;
-$password=shift;
+$username='';
+$password='';
 system("clear");
 
 print "[+] ------------------------------------------------------ [+]\n";
@@ -23,17 +23,44 @@ $cookie_jar=HTTP::Cookies->new(autosave=>1, hide_cookie2=>1);
 $agent=LWP::UserAgent->new(
 	agent => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:47.0) Gecko/20100101 Firefox/47.0',
 	ssl_opts => {%ssl_opts},
-	timeout => 30,
+	timeout => 1,
+	max_redirect => 0,
 	cookie_jar => $cookie_jar
 );
 
-login(1);
+#login(1);
 
+$count = 1;
 while(1) {
+
 	$time=localtime;
-	print "[$time] Waiting 3 minutes..\n";
-	sleep 180;
-	heartbeat();
+	$checkConnection = checkConnection();
+	if($checkConnection == 1) {
+		print "[$time] Connection OK...\n";
+	}
+	elsif($checkConnection eq 'nac.kmitl.ac.th') {
+		print "[$time] Require nac.kmitl.ac.th\n";
+		open FILE,">>log.txt";
+		print FILE "$time login nac\n";
+		close FILE;
+		login(1);
+		$count = 1;
+	}
+	else {
+		print "[$time] Connection down!!!\n";
+		print "$checkConnection";
+	}
+	if($count >= 15) {
+		heartbeat();
+		$count = 1;
+	}
+	sleep 60;
+	$count++;
+
+
+	#print "[$time] Waiting 3 minutes..\n";
+	#sleep 180;
+	#heartbeat();
 }
 
 
@@ -41,6 +68,16 @@ while(1) {
 
 
 
+sub checkConnection {
+	$content = $agent->get('http://188.166.177.132/check/')->as_string;
+	if($content=~/nac\.kmitl\.ac\.th/) {
+		return 'nac.kmitl.ac.th';
+	}
+	elsif($content=~/Hello planet!\n/) {
+		return 1;
+	}
+	return $content;
+}
 sub checkHTTPStatus {
 	my $content=$_[0];
 	my $http_code=$_[1];
