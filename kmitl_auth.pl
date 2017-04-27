@@ -1,4 +1,4 @@
-use LWP::UserAgent;
+﻿use LWP::UserAgent;
 use HTTP::Cookies;
 
 $username='';
@@ -10,8 +10,9 @@ print "[ ]                Script By Ohm CSAG 2016                 [ ]\n";
 print "[ ]               Create date: 26 July 2016                [ ]\n";
 print "[ ]                                                        [ ]\n";
 print "[ ]   Usage: perl kmitl_auth.pl username password          [ ]\n";
-print "[ ]          Can use only Generation1                      [ ]\n";
-print "[ ]                                                        [ ]\n";
+print "[ ]          Can use only Generation2                      [ ]\n";
+print "[ ]          Modified By Wandee CSAG                       [ ]\n";
+print "[ ]          Modified date: 24 April 2017                  [ ]\n";
 print "[+] ------------------------------------------------------ [+]\n\n";
 exit unless($username && $password);
 
@@ -94,13 +95,12 @@ sub getLocation {
 }
 sub login {
 	my $force=$_[0];
-	$content=$agent->post('https://161.246.254.213/dana-na/auth/url_default/login.cgi',[
+	$content=$agent->post('https://nac.kmitl.ac.th/dana-na/auth/url_default/login.cgi',[
 		'username' => $username,
 		'password' => $password,
-		'realm' => 'adminTestGroup',
 		'tz_offset' => '420',
 		'btnSubmit' => 'Sign in',
-		'realm' => '%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A%E0%B9%81%E0%B8%AD%E0%B8%84%E0%B9%80%E0%B8%84%E0%B8%B2%E0%B8%97%E0%B9%8C%E0%B9%80%E0%B8%81%E0%B9%88%E0%B8%B2+%28Generation1%29'#ระบบแอคเคาท์เก่า (Generation1)'
+		'realm' => 'ระบบแอคเคาท์ใหม่ (Generation2)'#ระบบแอคเคาท์เก่า (Generation1)'
 	])->as_string;
 
 	while(1) {
@@ -112,7 +112,7 @@ sub login {
 			if($content=~/You have the maximum number of sessions running/i && $force==1) {
 				($SessionToEnd)=$content=~/SessionToEnd" value="(.*?)"/;
 				($FormDataStr)=$content=~/FormDataStr" value="(.*?)"/;
-				$content=$agent->post('https://161.246.254.213/dana-na/auth/url_default/login.cgi',[
+				$content=$agent->post('https://nac.kmitl.ac.th/dana-na/auth/url_default/login.cgi',[
 					'SessionToEnd' => $SessionToEnd,
 					'btnContinueSessionsToEnd' => 'Continue',
 					'FormDataStr' => $FormDataStr
@@ -130,7 +130,7 @@ sub login {
 }
 sub heartbeat {
 	print " Sending heartbeat..\n";
-	$agent->post('https://nac.kmitl.ac.th/dana/home/infranet.cgi?',[
+	$agent->post('https://nac.kmitl.ac.th/dana-na/auth/url_default/infranet.cgi?',[
 		'heartbeat' => 1,
 		'clientlessEnabled' => 1,
 		'sessionExtension' => 0,
