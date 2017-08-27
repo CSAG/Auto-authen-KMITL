@@ -27,7 +27,6 @@ $agent=LWP::UserAgent->new(
 	max_redirect => 0,
 	cookie_jar => $cookie_jar
 );
-
 while(1) {
 	$time=localtime;
 	$checkConnection = checkConnection();
