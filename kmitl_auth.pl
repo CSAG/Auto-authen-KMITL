@@ -11,10 +11,7 @@ print "Password: ";
 ReadMode( "noecho");
 chomp (my $password = <>);
 ReadMode ("original") ;
-system("clear");
-# $username=shift;
-# $password=shift;
-# system("clear");
+system("cls");
 
 print "[+] ------------------------------------------------------ [+]\n";
 print "[ ]                Script By Ohm CSAG 2016                 [ ]\n";
