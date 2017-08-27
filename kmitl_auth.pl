@@ -1,9 +1,17 @@
 use LWP::UserAgent;
 use HTTP::Cookies;
+use Term::ReadKey;
 
-$username=shift;
-$password=shift;
+print "Username: ";
+$username=<>;
+print "Password: ";
+ReadMode( "noecho");
+chomp (my $password = <>);
+ReadMode ("original") ;
 system("clear");
+# $username=shift;
+# $password=shift;
+# system("clear");
 
 print "[+] ------------------------------------------------------ [+]\n";
 print "[ ]                Script By Ohm CSAG 2016                 [ ]\n";
