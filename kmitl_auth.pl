@@ -36,7 +36,7 @@ while(1) {
 		print "| |_) |  | |   | |___  ___) | / ___ \\ | |_| |  / __/ | |_| || |  / /   \n";
 		print "|____/   |_|    \\____||____/ /_/   \\_\\ \\____| |_____| \\___/ |_| /_/    \n";
 		print "\n";
-		print "Version fill input by Komphet.me\n";
+		print "Version fill input. Script By Ohm CSAG 2016. Modified by Komphet.me\n";
 		print "\n";
 		print "\n";
 		print "[$time] Connection Reset!!!\n";
