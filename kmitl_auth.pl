@@ -1,7 +1,14 @@
 use LWP::UserAgent;
 use HTTP::Cookies;
-$username='';
-$password='';
+use Term::ReadKey;
+
+print "Username: ";
+$username=<>;
+print "Password: ";
+ReadMode( "noecho");
+chomp (my $password = <>);
+ReadMode ("original") ;
+system("clear");
 
 print " ____  __   __   ____  ____      _      ____   ____    ___   _  _____   \n";
 print "| __ ) \\ \\ / /  / ___|/ ___|    / \\    / ___| |___ \\  / _ \\ / ||___  | \n";
