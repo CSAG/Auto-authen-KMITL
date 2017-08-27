@@ -7,6 +7,7 @@ use JSON;
 $username="";
 $password="";
 $isLogin=0;
+$message="";
 
 %ssl_opts=(
 	verify_hostname => 0,
@@ -28,7 +29,21 @@ while(1) {
 	if($checkConnection==1) {
 		print "[$time] Connection OK...\n";
 	}else {
+		system("cls");
+		print " ____  __   __   ____  ____      _      ____   ____    ___   _  _____   \n";
+		print "| __ ) \\ \\ / /  / ___|/ ___|    / \\    / ___| |___ \\  / _ \\ / ||___  | \n";
+		print "|  _ \\  \\ V /  | |    \\___ \\   / _ \\  | |  _    __) || | | || |   / /  \n";
+		print "| |_) |  | |   | |___  ___) | / ___ \\ | |_| |  / __/ | |_| || |  / /   \n";
+		print "|____/   |_|    \\____||____/ /_/   \\_\\ \\____| |_____| \\___/ |_| /_/    \n";
+		print "\n";
+		print "Version fill input by Komphet.me\n";
+		print "\n";
+		print "\n";
 		print "[$time] Connection Reset!!!\n";
+		if($message!=""){
+			print $message;
+			$message="";
+		}
 		if(login()==0){
 			sleep 10;
 			next;
@@ -41,18 +56,6 @@ while(1) {
 
 sub login {
 	if($username=="" || $username==""){
-		system("cls");
-
-		print " ____  __   __   ____  ____      _      ____   ____    ___   _  _____   \n";
-		print "| __ ) \\ \\ / /  / ___|/ ___|    / \\    / ___| |___ \\  / _ \\ / ||___  | \n";
-		print "|  _ \\  \\ V /  | |    \\___ \\   / _ \\  | |  _    __) || | | || |   / /  \n";
-		print "| |_) |  | |   | |___  ___) | / ___ \\ | |_| |  / __/ | |_| || |  / /   \n";
-		print "|____/   |_|    \\____||____/ /_/   \\_\\ \\____| |_____| \\___/ |_| /_/    \n";
-		print "\n";
-		print "Version fill input by Komphet.me\n";
-		print "\n";
-		print "\n";
-
 		print "Username: ";
 		chomp ($username=<>);
 		print "Password: ";
@@ -80,6 +83,7 @@ sub login {
 			} else {
 				$username="";
 				$password="";
+				$message="Username or Password is incorect!\n\n";
 				print " Username or Password is incorect!\n\n";
 				return 0;
 			}
