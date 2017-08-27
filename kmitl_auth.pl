@@ -31,7 +31,6 @@ $agent=LWP::UserAgent->new(
 	max_redirect => 0,
 	cookie_jar => $cookie_jar
 );
-$count = 1;
 while(1) {
 	$time=localtime;
 	$checkConnection = checkConnection();
@@ -41,12 +40,7 @@ while(1) {
 		print "[$time] Connection Heartbeat!!!\n";
 		login();
 	}
-	if($count >= 15) {
-		login();
-		$count = 1;
-	}
 	sleep 60;
-	$count++;
 }
 
 sub login {
