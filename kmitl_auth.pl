@@ -2,7 +2,6 @@ use LWP::UserAgent;
 use HTTP::Cookies;
 use Term::ReadKey;
 use Data::Dumper;
-use JSON;
 
 $username="";
 $password="";
@@ -21,7 +20,6 @@ $agent=LWP::UserAgent->new(
 	max_redirect => 0,
 	cookie_jar => $cookie_jar
 );
-$json=JSON->new->allow_nonref;
 
 while(1) {
 	$time=localtime;
